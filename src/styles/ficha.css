@@ -1,0 +1,66 @@
+#inner-ficha {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.deleted-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+.buttons-delete-box {
+    display: flex;
+    gap: 20px;
+}
+
+.delete-span {
+    color: red;
+}
+
+.deleted-title {
+    text-align: center;
+}
+
+.deleted-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#payments {
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 15px;
+    border: 1px solid rgb(201, 201, 201);
+}
+
+#total {
+    font-weight: 300;
+    font-style: normal;
+}
+
+#pagou {
+    color: green;
+}
+
+#resta {
+    color: red;
+}
+
+#adicionar-tratamento {
+    margin-top: 1%;
+    margin-left: 80%;
+}
+
+#ficha-infos {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
