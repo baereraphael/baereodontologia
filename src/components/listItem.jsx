@@ -37,7 +37,8 @@ export const mainListItems = (
       <ListItemText primary="Atendimentos" />
     </ListItemButton>
     </Link>
-    <Link to="/pagamentos">
+    {sessionStorage.getItem('user') === 'admin' ? (
+      <Link to="/pagamentos">
     <ListItemButton component="a" to="/pagamentos">
       <ListItemIcon>
         <MonetizationOnIcon />
@@ -45,6 +46,7 @@ export const mainListItems = (
       <ListItemText primary="Financeiro" />
     </ListItemButton>
     </Link>
+    ) : ''}
     <Link to="/agenda">
     <ListItemButton component="a" to="/agenda">
       <ListItemIcon>
@@ -53,6 +55,7 @@ export const mainListItems = (
       <ListItemText primary="Agenda" />
     </ListItemButton>
     </Link>
+    {sessionStorage.getItem('user') === 'admin' ? (
     <Link to="/analises">
     <ListItemButton component="a" to="/analises">
       <ListItemIcon>
@@ -61,6 +64,7 @@ export const mainListItems = (
       <ListItemText primary="Análises" />
     </ListItemButton>
     </Link>
+    ) : ''}
   </React.Fragment>
 );
 
