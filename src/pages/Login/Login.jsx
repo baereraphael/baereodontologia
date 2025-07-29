@@ -44,6 +44,7 @@ export default function SignIn () {
       })
       if (response.status === 200) {
         navigate('/home');
+        sessionStorage.clear();
         if (data.get('usuario') === 'RenanBaere') {
           sessionStorage.setItem('user', 'admin')
         }

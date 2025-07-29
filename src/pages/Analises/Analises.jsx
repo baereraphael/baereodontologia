@@ -214,6 +214,7 @@ function DashboardContent() {
             {secondaryListItems}
           </List>
         </Drawer>
+                  {sessionStorage.getItem('user') === 'admin' ? (
         <Box
           component="main"
           sx={{
@@ -376,6 +377,16 @@ function DashboardContent() {
             <Copyright sx={{ pt: 4 }} />    
           </Container>
         </Box>
+                  ) : (
+  <Box component="main" sx={{ flexGrow: 1, height: '100vh', overflow: 'auto' }}>
+    <Toolbar />
+      <Paper sx={{ p: 3 }}>
+        <Typography>
+          Ops... você não tem acesso a essa funcionalidade!
+        </Typography>
+      </Paper>
+  </Box>
+                  )}
       </Box>
     </ThemeProvider>
   );
