@@ -276,41 +276,45 @@ export default function EnhancedTable5(props) {
   })
 
   function handleChange(evt) {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-    if (evt.target.name === 'searchInput') {
-      if (evt.target.value === '') {
-        setPaymentRows(paymentRowsOG);
-        let rowsOnMount = stableSort(
-          paymentRowsOG,
-          getComparator(order, orderBy),
-        );
-    
-        rowsOnMount = rowsOnMount.slice(
-          0 * rowsPerPage,
-          0 * rowsPerPage + rowsPerPage,
-        );
-    
-        setVisibleRows(rowsOnMount);
-        return;
-      }
-      const filteredPaymentRows = paymentRows.filter((paymentRow) => paymentRow[state.searchSelect].toString().toLowerCase().includes(evt.target.value.toLowerCase()));
-      setPaymentRows(filteredPaymentRows);
+  const value = evt.target.value;
+  const name = evt.target.name;
+
+  setState((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+      if (evt.target.name === 'searchInput') {
+    const searchText = evt.target.value.toLowerCase();
+
+    if (searchText === '') {
+      setPaymentRows(paymentRowsOG);
+
       let rowsOnMount = stableSort(
-        filteredPaymentRows,
+        paymentRowsOG,
         getComparator(order, orderBy),
       );
-  
-      rowsOnMount = rowsOnMount.slice(
-        0 * rowsPerPage,
-        0 * rowsPerPage + rowsPerPage,
-      );
-  
+
+      rowsOnMount = rowsOnMount.slice(0, rowsPerPage);
       setVisibleRows(rowsOnMount);
+      return;
     }
+
+    // 🔍 Sempre filtrar a partir de paymentRowsOG
+    const filteredPaymentRows = paymentRowsOG.filter((paymentRow) =>
+      paymentRow[state.searchSelect]?.toString().toLowerCase().includes(searchText)
+    );
+
+    setPaymentRows(filteredPaymentRows);
+
+    let rowsOnMount = stableSort(
+      filteredPaymentRows,
+      getComparator(order, orderBy),
+    );
+
+    rowsOnMount = rowsOnMount.slice(0, rowsPerPage);
+    setVisibleRows(rowsOnMount);
+  }
   };
 
   React.useEffect(() => {

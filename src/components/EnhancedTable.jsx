@@ -284,47 +284,43 @@ export default function EnhancedTable() {
     searchSelect: "nome",
   })
   
-  async function handleChange(evt) {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-    if (evt.target.name === 'searchInput') {
-      if (evt.target.value === '') {
-        const rows = await createRows();
-        console.log(rows);
-        setPatientRows(rows);
-        setPatientRowsOG(rows);
-        let rowsOnMount = stableSort(
-          rows,
-          getComparator(order, orderBy),
-        );
-    
-        rowsOnMount = rowsOnMount.slice(
-          0 * rowsPerPage,
-          0 * rowsPerPage + rowsPerPage,
-        );
-    
-        setVisibleRows(rowsOnMount);
-        return;
-      }
-      const filteredPatientRows = patientRows.filter((patientRow) => patientRow[state.searchSelect].toString().toLowerCase().includes(evt.target.value.toLowerCase()));
-      setPatientRows(filteredPatientRows);
+async function handleChange(evt) {
+  const { name, value } = evt.target;
 
-      let rowsOnMount = stableSort(
-        filteredPatientRows,
-        getComparator(order, orderBy),
-      );
-  
-      rowsOnMount = rowsOnMount.slice(
-        0 * rowsPerPage,
-        0 * rowsPerPage + rowsPerPage,
-      );
-  
+  setState((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+  if (name === 'searchInput') {
+    const searchText = value.toLowerCase();
+
+    if (searchText === '') {
+      // Recarrega os dados originais
+      const rows = await createRows();
+      setPatientRows(rows);
+      setPatientRowsOG(rows);
+
+      let rowsOnMount = stableSort(rows, getComparator(order, orderBy));
+      rowsOnMount = rowsOnMount.slice(0, rowsPerPage);
+
       setVisibleRows(rowsOnMount);
+      return;
     }
-  };
+
+    // 🟢 Sempre filtra a partir dos dados ORIGINAIS
+    const filteredPatientRows = patientRowsOG.filter((patientRow) =>
+      patientRow[state.searchSelect]?.toString().toLowerCase().includes(searchText)
+    );
+
+    setPatientRows(filteredPatientRows);
+
+    let rowsOnMount = stableSort(filteredPatientRows, getComparator(order, orderBy));
+    rowsOnMount = rowsOnMount.slice(0, rowsPerPage);
+
+    setVisibleRows(rowsOnMount);
+  }
+}
 
   React.useEffect(() => {
     const getRows = async () => {

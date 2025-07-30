@@ -254,45 +254,49 @@ export default function EnhancedTable6(props) {
     searchSelect: "data",
   })
 
-  function handleChange(evt) {
-    console.log(treatmentRows);
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-    if (evt.target.name === 'searchInput') {
-      if (evt.target.value === '') {
-        setTreatmentRows(treatmentRowsOG);
-        let rowsOnMount = stableSort(
-          treatmentRowsOG,
-          getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
-        );
-    
-        rowsOnMount = rowsOnMount.slice(
-          0 * DEFAULT_ROWS_PER_PAGE,
-          0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
-        );
-    
-        setVisibleRows(rowsOnMount);
-        return;
-      }
-      const filteredTreatmentRows = treatmentRows.filter((treatmentRow) => treatmentRow[state.searchSelect].toString().toLowerCase().includes(evt.target.value.toLowerCase()));
-      setTreatmentRows(filteredTreatmentRows);
+ function handleChange(evt) {
+  const value = evt.target.value;
+  const name = evt.target.name;
+
+  console.log(treatmentRows);
+
+  setState((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+  if (name === 'searchInput') {
+    const searchText = value.toLowerCase();
+
+    if (searchText === '') {
+      setTreatmentRows(treatmentRowsOG);
+
       let rowsOnMount = stableSort(
-        filteredTreatmentRows,
+        treatmentRowsOG,
         getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
       );
-  
-      rowsOnMount = rowsOnMount.slice(
-        0 * DEFAULT_ROWS_PER_PAGE,
-        0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
-      );
-  
-      setVisibleRows(rowsOnMount);
-    }
-  };
 
+      rowsOnMount = rowsOnMount.slice(0, DEFAULT_ROWS_PER_PAGE);
+      setVisibleRows(rowsOnMount);
+      return;
+    }
+
+    // 🔍 Sempre buscar nos dados originais
+    const filteredTreatmentRows = treatmentRowsOG.filter((treatmentRow) =>
+      treatmentRow[state.searchSelect]?.toString().toLowerCase().includes(searchText)
+    );
+
+    setTreatmentRows(filteredTreatmentRows);
+
+    let rowsOnMount = stableSort(
+      filteredTreatmentRows,
+      getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
+    );
+
+    rowsOnMount = rowsOnMount.slice(0, DEFAULT_ROWS_PER_PAGE);
+    setVisibleRows(rowsOnMount);
+  }
+};
   React.useEffect(() => {
     const getRows = async () => {
       const rows = await createRows6(id);

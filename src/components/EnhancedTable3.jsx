@@ -269,43 +269,48 @@ export default function EnhancedTable3(props) {
     searchSelect: "data",
   })
 
-  function handleChange(evt) {
-    const value = evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value
-    });
-    if (evt.target.name === 'searchInput') {
-      if (evt.target.value === '') {
-        setPaymentRows(paymentRowsOG);
-        let rowsOnMount = stableSort(
-          paymentRowsOG,
-          getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
-        );
-    
-        rowsOnMount = rowsOnMount.slice(
-          0 * DEFAULT_ROWS_PER_PAGE,
-          0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
-        );
-    
-        setVisibleRows(rowsOnMount);
-        return;
-      }
-      const filteredPaymentRows = paymentRows.filter((paymentRow) => paymentRow[state.searchSelect].toString().toLowerCase().includes(evt.target.value.toLowerCase()));
-      setPaymentRows(filteredPaymentRows);
+function handleChange(evt) {
+  const value = evt.target.value;
+  const name = evt.target.name;
+
+  setState((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+  if (name === 'searchInput') {
+    const searchText = value.toLowerCase();
+
+    if (searchText === '') {
+      // Recarrega dados originais
+      setPaymentRows(paymentRowsOG);
+
       let rowsOnMount = stableSort(
-        filteredPaymentRows,
+        paymentRowsOG,
         getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
       );
-  
-      rowsOnMount = rowsOnMount.slice(
-        0 * DEFAULT_ROWS_PER_PAGE,
-        0 * DEFAULT_ROWS_PER_PAGE + DEFAULT_ROWS_PER_PAGE,
-      );
-  
+
+      rowsOnMount = rowsOnMount.slice(0, DEFAULT_ROWS_PER_PAGE);
       setVisibleRows(rowsOnMount);
+      return;
     }
-  };
+
+    // 🔎 Sempre filtrar a partir dos dados originais
+    const filteredPaymentRows = paymentRowsOG.filter((paymentRow) =>
+      paymentRow[state.searchSelect]?.toString().toLowerCase().includes(searchText)
+    );
+
+    setPaymentRows(filteredPaymentRows);
+
+    let rowsOnMount = stableSort(
+      filteredPaymentRows,
+      getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
+    );
+
+    rowsOnMount = rowsOnMount.slice(0, DEFAULT_ROWS_PER_PAGE);
+    setVisibleRows(rowsOnMount);
+  }
+};
 
   React.useEffect(() => {
     const getRows = async () => {
