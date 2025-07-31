@@ -144,7 +144,7 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const navigate = useNavigate();
-  const { numSelected, selected, setSelected, setAtualize, setAtualize2, handleChange, state, onCloseAndClear } = props;
+  const { numSelected, selected, setSelected, setAtualize, setAtualize2, handleChange, state } = props;
   const { handleOpen3, open3, handleOpen6, open6, handleOpen7 } = React.useContext(BaereContext);
 
   return (
@@ -262,10 +262,6 @@ export default function EnhancedTable3(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
   const { id } = useParams();
-
-      const clearSelection = () => {
-      setSelected([]);
-    };
 
 
   const [state, setState] = React.useState({
@@ -446,8 +442,8 @@ function handleChange(evt) {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected} onCloseAndClear={clearSelection}/>
-        <BasicModal3 setAtualize2={setAtualize2} setAtualize={setAtualize} onCloseAndClear={clearSelection}/>
+        <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected}/>
+        <BasicModal3 setAtualize2={setAtualize2} setAtualize={setAtualize}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
