@@ -36,9 +36,9 @@ export default function BasicModal4(props) {
         return response;
       }));
       // Atualize após a deleção de todos os pacientes
+      setSelected([]);
       setAtualize(true);
       handleClose4();
-      setSelected([]);
     } catch (error) {
       console.error('Erro ao excluir pacientes:', error);
     }

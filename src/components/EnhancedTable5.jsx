@@ -449,7 +449,7 @@ export default function EnhancedTable5(props) {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected} />
-        <BasicModal3 setAtualize2={setAtualize2} setAtualize={setAtualize}/>
+        <BasicModal3 setSelected={setSelected} setAtualize2={setAtualize2} setAtualize={setAtualize}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -496,6 +496,7 @@ export default function EnhancedTable5(props) {
                           scope="row"
                           padding="none"
                         >
+                          {console.log(row)}
                           {row.data}
                         </TableCell>
                         <TableCell align="left">{row.pagou}</TableCell>

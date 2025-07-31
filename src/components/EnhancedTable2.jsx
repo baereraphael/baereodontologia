@@ -175,6 +175,9 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   const navigate = useNavigate();
+      const clearSelection = () => {
+      setSelected([]);
+    };
   const { numSelected, selected, setSelected, setAtualize, setAtualize2, handleChange, state } = props;
   const { handleOpen2, open2, handleOpen5, open5, handleOpen9 } = React.useContext(BaereContext);
 
@@ -247,8 +250,8 @@ function EnhancedTableToolbar(props) {
 
       {numSelected > 0 ? (
         <React.Fragment>
-          <BasicModal5 selected={selected} setAtualize={setAtualize} setSelected={setSelected} />
-          <BasicModal9 selected={selected[0]} setAtualize={setAtualize} setSelected={setSelected} />
+          <BasicModal5 selected={selected} setAtualize={setAtualize} setSelected={setSelected} onCloseAndClear={clearSelection} />
+          <BasicModal9 selected={selected[0]} setAtualize={setAtualize} setSelected={setSelected} onCloseAndClear={clearSelection}/>
           {numSelected === 1 ? (
                       <Tooltip title="Editar tratamento">
                       <IconButton onClick={handleOpen9}>
@@ -480,7 +483,7 @@ function handleChange(evt) {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected} />
-        <BasicModal2 setAtualize2={setAtualize2} setAtualize={setAtualize}/>
+        <BasicModal2 setAtualize2={setAtualize2} setAtualize={setAtualize} onCloseAndClear={clearSelection}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

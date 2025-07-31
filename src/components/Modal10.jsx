@@ -24,7 +24,7 @@ const style = {
 };
 
 export default function BasicModal10(props) {
-  const { setAtualize, setAtualize2, handleSelectSlot } = props;
+  const { setAtualize, setAtualize2, setSelected } = props;
   const { open10, handleClose10 } = React.useContext(BaereContext);
   const { urlRequisicao, endDate, startDate } = React.useContext(BaereContext);
   const { id } = useParams();
@@ -107,6 +107,7 @@ export default function BasicModal10(props) {
             onChange={handleChange}
           >
             <MenuItem value={'1'}>Renan Baere</MenuItem>
+            <MenuItem value={'2'}>Graziela Pires</MenuItem>
           </Select>
           </FormControl>
           <FormControl>

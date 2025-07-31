@@ -152,6 +152,10 @@ function EnhancedTableToolbar(props) {
   const { numSelected, selected, setSelected, setAtualize, handleChange, state } = props;
   const { handleOpen, open, createRows, handleOpen4, open8, handleOpen8 } = React.useContext(BaereContext);
 
+    const clearSelection = () => {
+      setSelected([]);
+    };
+
   return (
     <Toolbar
       sx={{
@@ -220,7 +224,7 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0 ? (
         <React.Fragment>
           <BasicModal4 setSelected={setSelected} setAtualize={setAtualize} selected={selected} />
-          <BasicModal8 setSelected={setSelected} setAtualize={setAtualize} selected={selected[0]} />
+          <BasicModal8 setSelected={setSelected} setAtualize={setAtualize} selected={selected[0]} onCloseAndClear={clearSelection} />
           {numSelected === 1 ? (
                       <Tooltip title="Ir para ficha detalhada">
                       <IconButton

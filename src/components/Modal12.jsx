@@ -75,10 +75,10 @@ export default function BasicModal12(props) {
         },
         body: JSON.stringify(body),
       });
-      handleClose12();
       setSelected([]);
       setAtualize(body);
       setAtualize2(body);
+      handleClose12();
     } catch (e) {
       return({ type: 404, message: e});
     }

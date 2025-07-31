@@ -24,7 +24,7 @@ const style = {
 };
 
 export default function BasicModal9(props) {
-  const { setAtualize, setAtualize2, selected } = props;
+  const { setAtualize, setAtualize2, selected, setSelected } = props;
   const { open9, handleClose9 } = React.useContext(BaereContext);
   const { urlRequisicao } = React.useContext(BaereContext);
   const { id } = useParams();
@@ -88,6 +88,7 @@ export default function BasicModal9(props) {
         },
         body: JSON.stringify(body),
       });
+      setSelected([])
       handleClose9();
       setAtualize(body);
       setAtualize2(body);

@@ -23,7 +23,7 @@ const style = {
 };
 
 export default function BasicModal8(props) {
-  const { setAtualize, selected } = props;
+  const { setAtualize, selected, setSelected } = props;
   const { open8, handleClose8 } = React.useContext(BaereContext);
   const { urlRequisicao } = React.useContext(BaereContext);
   const [state, setState] = React.useState({
@@ -81,7 +81,7 @@ export default function BasicModal8(props) {
         },
         body: JSON.stringify(body),
       });
-      console.log(response, 'aqui');
+      setSelected([]);
       setAtualize(body);
       handleClose8();
     } catch (e) {

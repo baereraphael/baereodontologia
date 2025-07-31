@@ -35,9 +35,9 @@ export default function BasicModal13(props) {
         });
         return response;
       }));
+      setSelected([]);
       setAtualize(true);
       handleClose13();
-      setSelected([]);
     } catch (e) {
       console.error(e);
     }

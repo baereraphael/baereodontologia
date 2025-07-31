@@ -433,8 +433,8 @@ export default function EnhancedTable6(props) {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
       <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected} />
-        <BasicModal11 setAtualize2={setAtualize2} setAtualize={setAtualize}/>
-        <BasicModal12 selected={selected[0]} setAtualize={setAtualize} setSelected={setSelected} />
+        <BasicModal11 setSelected={setSelected} setAtualize2={setAtualize2} setAtualize={setAtualize}/>
+        <BasicModal12 setSelected={setSelected} selected={selected[0]} setAtualize={setAtualize} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}

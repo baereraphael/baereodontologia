@@ -24,7 +24,7 @@ const style = {
 };
 
 export default function BasicModal7(props) {
-  const { setAtualize, setAtualize2, selected } = props;
+  const { setAtualize, selected, setSelected } = props;
   const { open7, handleClose7 } = React.useContext(BaereContext);
   const { urlRequisicao } = React.useContext(BaereContext);
   const { id } = useParams();
@@ -56,9 +56,8 @@ export default function BasicModal7(props) {
         },
         body: JSON.stringify(body),
       });
-      console.log(response)
+      setSelected([])
       setAtualize(body);
-      setAtualize2(body);
       handleClose7();
     } catch (e) {
       console.log(e)
