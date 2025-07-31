@@ -496,7 +496,6 @@ export default function EnhancedTable5(props) {
                           scope="row"
                           padding="none"
                         >
-                          {console.log(row)}
                           {row.data}
                         </TableCell>
                         <TableCell align="left">{row.pagou}</TableCell>

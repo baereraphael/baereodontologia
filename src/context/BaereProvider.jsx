@@ -195,13 +195,13 @@ async function createRows4() {
 }
 
 async function createRows5() {
-  function createData(data, pagou, tipo, nome_paciente, cpf_paciente) {
+  function createData(data, pagou, tipo, paciente_id, id) {
     return {
       data, 
       pagou,
       tipo,
-      nome_paciente,
-      cpf_paciente
+      paciente_id,
+      id
     };
   }
   try {
