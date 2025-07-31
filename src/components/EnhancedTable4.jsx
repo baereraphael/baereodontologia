@@ -267,17 +267,7 @@ function EnhancedTableToolbar(props) {
             </IconButton>
           </Tooltip>
         </React.Fragment>
-      ) : (
-        <Tooltip title="Adicionar novo tratamento">
-          <IconButton
-            onClick={() => {
-              handleOpen2();
-            }}
-          >
-            <PostAddIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      ) : ''}
     </Toolbar>
   );
 }
@@ -493,7 +483,7 @@ function handleChange(evt) {
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar state={state} handleChange={handleChange} setAtualize2={setAtualize2} setAtualize={setAtualize} setSelected={setSelected} numSelected={selected.length} selected={selected} />
-        <BasicModal2 setAtualize2={setAtualize2} setAtualize={setAtualize}/>
+        <BasicModal2 setSelected={setSelected} setAtualize2={setAtualize2} setAtualize={setAtualize}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
